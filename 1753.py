@@ -1,5 +1,7 @@
 from collections import defaultdict
+import sys
 import heapq
+input = sys.stdin.readline
 V, E = map(int, input().split())
 K = int(input())
 hp = []
@@ -15,7 +17,7 @@ for i in range(E):
 dist[K] = 0
 for vertex in graph[K]:
     heapq.heappush(hp, (graph[K][vertex], vertex)) #거리 초기화
-
+    
 while len(hp):
     distance, v = heapq.heappop(hp)
     if dist[v] == 3000001: #dist 값이 매우 크면 방문 안한 것이므로. 값은 작은 순서대로 나오는 것이므로 비교할 필요 X
