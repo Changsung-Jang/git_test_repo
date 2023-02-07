@@ -14,18 +14,17 @@ for i in range(E):
     else:
         graph[u][v] = w
 
+heapq.heappush(hp, (0, K))
 dist[K] = 0
-for vertex in graph[K]:
-    heapq.heappush(hp, (graph[K][vertex], vertex)) #거리 초기화
-    
-while len(hp):
-    distance, v = heapq.heappop(hp)
-    if dist[v] == 3000001: #dist 값이 매우 크면 방문 안한 것이므로. 값은 작은 순서대로 나오는 것이므로 비교할 필요 X
-        dist[v] = distance
-        for vertex in graph[v]:
-            if dist[v] + graph[v][vertex] < dist[vertex]:
-                heapq.heappush(hp, (dist[v] + graph[v][vertex], vertex)) #거리 초기화
 
+while(hp):
+    distance, vertex = heapq.heappop(hp)
+
+    for v in graph[vertex]:
+        dist_update = dist[vertex] + graph[vertex][v]
+        if dist_update < dist[v]:
+            dist[v] = dist_update                    
+            heapq.heappush(hp, (dist[v], v))
 
 #print(dist)
 for idx in range(1, len(dist)):
